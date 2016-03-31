@@ -9,13 +9,13 @@
 #import "ApplicationDelegate.h"
 
 /*
- 如果你添加进来的apns.cer是开发证书就用 gateway.sandbox.push.apple.com，否则替换为gateway.push.apple.com
+ 如果你是真机测试则用 gateway.sandbox.push.apple.com，否则替换为gateway.push.apple.com
  */
-#define applePushGateway "gateway.sandbox.push.apple.com" //"gateway.push.apple.com"
-
+#define applePushGateway "gateway.push.apple.com" //"gateway.push.apple.com"
+//gateway.sandbox.push.apple.com
 #define certificatePush @"apns.cer"
 
-#define deviceTokenIdentifier @"268bbbf4 d6aa38d6 385ba623 1edfffe2 c613d0e4 9d1d47f0 319fbb08 c4cd05c7"
+#define deviceTokenIdentifier @"2572464d 01b3b4dc 5877a1d2 2bc0849c ec879ddb e927018a c31630a6 39d86827"
 
 @interface ApplicationDelegate ()
 #pragma mark Properties
@@ -33,7 +33,7 @@
 	self = [super init];
 	if(self != nil) {
 		self.deviceToken = deviceTokenIdentifier;
-		self.payload = @"{\"aps\":{\"alert\":\"This is some fancy message.\",\"badge\":1}}";
+		self.payload = @"{\"aps\":{\"alert\":\"今天学习了吗？😂\",\"badge\":1}}";
         NSString *certificateName = certificatePush;
 		self.certificate = [[NSBundle mainBundle] pathForResource:[certificateName stringByDeletingPathExtension] ofType:[certificateName pathExtension]];
 	}
