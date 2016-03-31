@@ -8,6 +8,15 @@
 
 #import "ApplicationDelegate.h"
 
+/*
+ 如果你添加进来的apns.cer是开发证书就用 gateway.sandbox.push.apple.com，否则替换为gateway.push.apple.com
+ */
+#define applePushGateway "gateway.sandbox.push.apple.com" //"gateway.push.apple.com"
+
+#define certificatePush @"apns.cer"
+
+#define deviceTokenIdentifier @"3086954f 1cab61cc 9ca9a92f 0a725fff fa7b1897 5fd25cc5 d31fbd82 574768c4"
+
 @interface ApplicationDelegate ()
 #pragma mark Properties
 @property(nonatomic, retain) NSString *deviceToken, *payload, *certificate;
@@ -23,9 +32,10 @@
 - (id)init {
 	self = [super init];
 	if(self != nil) {
-		self.deviceToken = @"";
+		self.deviceToken = deviceTokenIdentifier;
 		self.payload = @"{\"aps\":{\"alert\":\"This is some fancy message.\",\"badge\":1}}";
-		self.certificate = [[NSBundle mainBundle] pathForResource:@"apns" ofType:@"cer"];
+        NSString *certificateName = certificatePush;
+		self.certificate = [[NSBundle mainBundle] pathForResource:[certificateName stringByDeletingPathExtension] ofType:[certificateName pathExtension]];
 	}
 	return self;
 }
@@ -76,7 +86,7 @@
 	
 	// Establish connection to server.
 	PeerSpec peer;
-	result = MakeServerConnection("gateway.sandbox.push.apple.com", 2195, &socket, &peer);// NSLog(@"MakeServerConnection(): %d", result);
+	result = MakeServerConnection(applePushGateway, 2195, &socket, &peer);// NSLog(@"MakeServerConnection(): %d", result);
 	
 	// Create new SSL context.
 	result = SSLNewContext(false, &context);// NSLog(@"SSLNewContext(): %d", result);
@@ -88,7 +98,7 @@
 	result = SSLSetConnection(context, socket);// NSLog(@"SSLSetConnection(): %d", result);
 	
 	// Set server domain name.
-	result = SSLSetPeerDomainName(context, "gateway.sandbox.push.apple.com", 30);// NSLog(@"SSLSetPeerDomainName(): %d", result);
+	result = SSLSetPeerDomainName(context, applePushGateway, 30);// NSLog(@"SSLSetPeerDomainName(): %d", result);
 	
 	// Open keychain.
 	result = SecKeychainCopyDefault(&keychain);// NSLog(@"SecKeychainOpen(): %d", result);
