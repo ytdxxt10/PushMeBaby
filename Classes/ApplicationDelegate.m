@@ -15,7 +15,7 @@
 
 #define certificatePush @"apns.cer"
 
-#define deviceTokenIdentifier @"3086954f 1cab61cc 9ca9a92f 0a725fff fa7b1897 5fd25cc5 d31fbd82 574768c4"
+#define deviceTokenIdentifier @"268bbbf4 d6aa38d6 385ba623 1edfffe2 c613d0e4 9d1d47f0 319fbb08 c4cd05c7"
 
 @interface ApplicationDelegate ()
 #pragma mark Properties
@@ -98,7 +98,7 @@
 	result = SSLSetConnection(context, socket);// NSLog(@"SSLSetConnection(): %d", result);
 	
 	// Set server domain name.
-	result = SSLSetPeerDomainName(context, applePushGateway, 30);// NSLog(@"SSLSetPeerDomainName(): %d", result);
+	result = SSLSetPeerDomainName(context, applePushGateway, [NSString stringWithUTF8String:applePushGateway].length);// NSLog(@"SSLSetPeerDomainName(): %d", result);
 	
 	// Open keychain.
 	result = SecKeychainCopyDefault(&keychain);// NSLog(@"SecKeychainOpen(): %d", result);
