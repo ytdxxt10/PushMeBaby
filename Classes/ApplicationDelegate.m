@@ -11,7 +11,7 @@
 /*
  如果你是真机测试则用 gateway.sandbox.push.apple.com，否则替换为gateway.push.apple.com
  */
-#define applePushGateway "gateway.push.apple.com" //"gateway.push.apple.com"
+#define applePushGateway "gateway.sandbox.push.apple.com" //"gateway.push.apple.com"
 //gateway.sandbox.push.apple.com
 #define certificatePush @"apns.cer"
 
